@@ -179,17 +179,17 @@ class ProcessB(TCPSocketUser):
 
         # First, receive the file
         super().bind()
-        super().receive_file('temporary_file.stl')
+        super().receive_file('temporary_cad_file.stl')
 
         # TCP can take minutes to release a socket
         super().increment_port_number()
 
         # Then, send the file back
         super().connect()
-        super().send_file('temporary_file.stl')
+        super().send_file('temporary_cad_file.stl')
 
         # Finally, delete the file
-        super().delete_file('temporary_file.stl')
+        super().delete_file('temporary_cad_file.stl')
 
     def rebound_csv_file(self):
         ''' 
