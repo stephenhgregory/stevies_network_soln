@@ -1,50 +1,15 @@
-# network_com_hw: Take-home programming project
-## Objective
-Build two independent inter-communicating processes (A & B) able to exchange data using two different means of data transfer/messaging services. The processes could be headless - run from a command line, or have a GUI (You will provide instructions for using them).
+# Machina Labs: Network Problem
 
-For communication use any two of several methods available, such as…
-- Network sockets
-- ZeroMQ (or equivalent for chosen programming language)
-- Netty
-- Other messaging brokers (could use a test broker hosted online)
-- Other
+This repository contains a solution to 2 simple problems, specified as follows.
 
-Using one method of communication, Process A must connect with B and send contents of the provided data file cad_mesh.stl (a CAD geometry). On receiving the data, B, which has earlier established a second channel of communication with A, must return the data. A will then save the received data in a file called output.stl (cad_mesh.stl must match output.stl).
+## Problem 1
+Create two processes, known as "Process A" and "Process B". Then, using some communication protocol, pass an .stl file (3D CAD design description) from Process A to Process B. Process B will then return the contents of that .stl file back to Process A. Success in solving this problem is incumbent on equivalence between the original .stl file and newly saved .stl file.
 
-## Requirements
-- The application/s may run on a single Windows or Linux workstation; may be connected to the web or not. Alternatively the two processes A & B could be deployed and run on two independent work stations. 
-- Developed in the candidate's choice of programming language.
-- Candidates must provide executables for functional evaluation, as well as code for review and discussion during subsequent follow-up interview discussion. The delivered package must include any necessary configuration or other files.
-- The deliverables must include documentation that could be followed to download, install and/or run the application.
-- The code must be organized and well-documented. 
-- The effort is expected to take between 2 - 8 hours based on the candidate’s experience in network application development.
+## Problem 2 (challenge problem)
+Again, create two process, known as "Process A" and "Process B" that communicate via some protocol. However, when Process B receives the .stl file from Process A, we want to convert the contents of the STL file into a CSV file. Each row of this CSV file will represent the x, y, and z coordinates of each point in the STL mesh. Process B will then return the contents of this file back to Process A. Process A will then save the contents of this file to a new CSV file to be stored. 
 
-## Grading Criteria
-- We’re looking for code that is clean, readable, performant and maintainable.
-- The developer must think through the process of deploying and using the solution and provide necessary documentation.
-- The choice of messaging services used will not matter as long as the final code performs as expected. 
+## My Solution
+I have created a simple TCP socket communication class in Python. This class, which makes extensive use of the [socket](https://docs.python.org/3/library/socket.html) Python library, can be used to connect and bind to network ports via TCP sockets, send the contents of files across those ports, and receive data in the same way. I have also created two subclasses of this TCP socket communication class which organize the functionality of "Process A" and "Process B" into manageable, decoupled, and easily maintainable chunks of functionality. I have also made the TCP socket communication class rather generalizable, so as not to over-specialize for this exact problem description.
 
-## Optional Simpler Scope (to reduce candidate's time and effort)
-- Implement one-way communication from process A to B using any single method of data transfer.
-- Process B is to save received data in a file called output.stl
+I have also solved the challenge problem, making use of the very effective [numpy-stl](https://pypi.org/project/numpy-stl/) library for reading STL mesh files into numpy arrays.
 
-## Optional Challenge (beyond original scope)
-- In Process B, implement a parser that reads the .stl file, extracts each vertex in the file and generates an Output.csv file containing the vertices.
-- The Output.csv file must be formatted to contain data (x,y,z) for each vertex on an independent line. The positional data coordinate values, each a float, must have 4 significant digits following the decimal point. 
-- Return the output.csv file to process B.
-- If not familiar, the candidate is expected to independently conduct research online to understand the format of an .STL file, which is a commonly used CAD format.
-
-## Submission
-In order to submit the assignment, do the following:
-
-1. Navigate to GitHub's project import page: [https://github.com/new/import](https://github.com/new/import)
-
-2. In the box titled "Your old repository's clone URL", paste the homework repository's link: [https://github.com/Machina-Labs/network_com_hw](https://github.com/Machina-Labs/network_com_hw)
-
-3. In the box titled "Repository Name", add a name for your local homework (ex. `network_com_soln`)
-
-4. Set privacy level to "Public", then click "Begin Import" button at bottom of the page.
-
-5. Develop your homework solution in the cloned repository and push it to Github when you're done. Extra points for good Git hygiene.
-
-6. Send us the link to your repository.
