@@ -108,11 +108,17 @@ class ProcessA(TCPSocketUser):
         self.new_csv_filename = new_csv_filename
 
     def send_file(self):
-        ''' Overrides TCPSocketUser.send_file to throw an exception. '''
+        '''
+        Overrides TCPSocketUser.send_file to throw an exception.
+        There is no need to ProcessA to receive a file outside of the target problem flow.
+        '''
         raise AttributeError('\'ProcessA\' object has no attribute \'send_file\'')
 
     def receive_file(self):
-        ''' Overrides TCPSocketUser.receive_file to add the new cad file name. '''
+        ''' 
+        Overrides TCPSocketUser.receive_file to throw an exception. 
+        There is no need for ProcessA to receive a file outside of the target problem flow.
+        '''
         raise AttributeError('\'ProcessA\' object has no attribute \'receive_file\'')
 
     @file_utils.function_timer
@@ -164,11 +170,17 @@ class ProcessB(TCPSocketUser):
         super().__init__(first_available_port_number, last_available_port_number, host_name)
 
     def send_file(self):
-        ''' Overrides TCPSocketUser.send_file to throw an exception. '''
+        '''
+        Overrides TCPSocketUser.send_file to throw an exception.
+        There is no need to ProcessAB to receive a file outside of the target problem flow.
+        '''
         raise AttributeError('\'ProcessB\' object has no attribute \'send_file\'')
 
     def receive_file(self):
-        ''' Overrides TCPSocketUser.receive_file to add the new cad file name. '''
+        '''
+        Overrides TCPSocketUser.send_file to throw an exception.
+        There is no need to ProcessB to receive a file outside of the target problem flow.
+        '''
         raise AttributeError('\'ProcessB\' object has no attribute \'receive_file\'')
 
     def rebound_file(self):
@@ -181,7 +193,7 @@ class ProcessB(TCPSocketUser):
         super().bind()
         super().receive_file('temporary_cad_file.stl')
 
-        # TCP can take minutes to release a socket
+        # Move on to the next available port (TCP can take minutes to release a socket)
         super().increment_port_number()
 
         # Then, send the file back
@@ -201,7 +213,7 @@ class ProcessB(TCPSocketUser):
         super().bind()
         super().receive_file('temporary_cad_file.stl')
 
-        # TCP can take minutes to release a socket
+        # Move on to the next available port (TCP can take minutes to release a socket)
         super().increment_port_number()
 
         # Convert the temporary file into a csv file
