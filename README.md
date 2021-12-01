@@ -13,3 +13,16 @@ I have created a simple TCP socket communication class in Python. This class, wh
 
 I have also solved the challenge problem, making use of the very effective [numpy-stl](https://pypi.org/project/numpy-stl/) library for reading STL mesh files into numpy arrays.
 
+## How to Run
+To run the solution, first install dependencies
+```
+# Install dependencies listed in 'requirements.txt'
+pip install -r requirements.txt
+```
+
+Then, simply run the 'run_locally.sh' bash script to solve both the standard and challenge problems. To view the results of the solutions, see the [assets](/assets) folder.
+```
+# Run both solutions on a single machine using TCP sockets
+./run_locally.sh
+```
+
