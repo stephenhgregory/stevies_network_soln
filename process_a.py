@@ -11,7 +11,7 @@ parser.add_argument("-new_csv_fname", "--new_csv_filename", help="New CSV Filena
 parser.add_argument("-start_port", "--start_port_number", help="First available port number", default=8000)
 parser.add_argument("-end_port", "--end_port_number", help="Last available port number", default=8100)
 parser.add_argument("-shn", "--server_host_name", help="Host Name (IP Address) of main server (Process B)", default='192.168.1.162')
-parser.add_argument("-c", "--challenge", help="Challenge mode", default=True)
+parser.add_argument("-c", "--challenge", help="Challenge mode", action='store_true')
 
 LOOPBACK_HOST_NAME = '127.0.0.1'
 
